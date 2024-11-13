@@ -1,0 +1,68 @@
+{
+    "golf_courses": [
+      {
+        "name": "Centro Nacional de Golf",
+        "holes": [
+          {
+            "hole_number": 1,
+            "handicap": 12,
+            "distance_white": 400,
+            "distance_yellow": 350,
+            "distance_blue": 300,
+            "distance_red": 250,
+            "par": 5
+          },
+          {
+            "hole_number": 2,
+            "handicap": 9,
+            "distance_white": 180,
+            "distance_yellow": 170,
+            "distance_blue": 160,
+            "distance_red": 150,
+            "par": 3
+          },
+          {
+            "hole_number": 3,
+            "handicap": 16,
+            "distance_white": 350,
+            "distance_yellow": 330,
+            "distance_blue": 310,
+            "distance_red": 280,
+            "par": 4
+          }
+        ]
+      },
+      {
+        "name": "Olivar de la Hinojosa",
+        "holes": [
+          {
+            "hole_number": 12,
+            "handicap": 1,
+            "distance_white": 350,
+            "distance_yellow": 330,
+            "distance_blue": 310,
+            "distance_red": 280,
+            "par": 5
+          },
+          {
+            "hole_number": 11,
+            "handicap": 8,
+            "distance_white": 245,
+            "distance_yellow": 240,
+            "distance_blue": 235,
+            "distance_red": 230,
+            "par": 4
+          },
+          {
+            "hole_number": 18,
+            "handicap": 5,
+            "distance_white": 300,
+            "distance_yellow": 295,
+            "distance_blue": 290,
+            "distance_red": 285,
+            "par": 3
+          }
+        ]
+      }
+    ]
+  }
