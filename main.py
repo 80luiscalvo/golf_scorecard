@@ -1,8 +1,8 @@
+import json
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty, StringProperty, ListProperty
-import json
 
 # Sample course data
 course_data = {
@@ -18,12 +18,36 @@ class HomeScreen(Screen):
 class SettingsScreen(Screen):
     handicap = NumericProperty(0)
     selected_course = StringProperty("")
-    course_names = ListProperty()  # Add course_names as a ListProperty
+    email = StringProperty("")
+    pin_number = StringProperty("")
+    course_names = ListProperty()
 
     def __init__(self, **kwargs):
         super(SettingsScreen, self).__init__(**kwargs)
         # Initialize course_names with the names from course_data
         self.course_names = [course["name"] for course in course_data["golf_courses"]]
+
+    def save_user_data(self):
+        # Load existing user data from current_users.json
+        try:
+            with open("current_users.json", "r") as json_file:
+                data = json.load(json_file)
+        except FileNotFoundError:
+            data = {"current user": [{"email": "", "PIN_Number": "", "handicap": "", "course": ""}]}
+        
+        # Update the current user data
+        data["current user"][0]["email"] = self.email
+        data["current user"][0]["PIN_Number"] = self.pin_number
+        data["current user"][0]["handicap"] = self.handicap
+        data["current user"][0]["course"] = self.selected_course
+
+        # Save the updated data back to current_users.json
+        try:
+            with open("current_users.json", "w") as json_file:
+                json.dump(data, json_file, indent=4)
+            print("User data saved to current_users.json")
+        except Exception as e:
+            print(f"Error saving data: {e}")
 
 class ScoreScreen(Screen):
     player_name = StringProperty("Player")

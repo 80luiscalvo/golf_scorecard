@@ -1,5 +1,3 @@
-# golfscorecard.kv
-
 ScreenManager:
     HomeScreen:
         name: "home"
@@ -55,6 +53,10 @@ ScreenManager:
             text: "Go"
             on_release: app.root.current = "score"
 
+        Button:
+            text: "Home"
+            on_release: app.root.current = "home"  # Home button to go back to HomeScreen
+
 <ScoreScreen>:
     BoxLayout:
         orientation: 'vertical'
@@ -109,3 +111,7 @@ ScreenManager:
 
             Label:
                 text: str(root.total_score)
+
+        Button:
+            text: "Home"
+            on_release: app.root.current = "home"  # Home button to go back to HomeScreen
