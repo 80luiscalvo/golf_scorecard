@@ -3,6 +3,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty, StringProperty, ListProperty
+import random
+
 
 # Sample course data
 course_data = {
@@ -26,18 +28,23 @@ class SettingsScreen(Screen):
         super(SettingsScreen, self).__init__(**kwargs)
         # Initialize course_names with the names from course_data
         self.course_names = [course["name"] for course in course_data["golf_courses"]]
+        self.generate_random_pin()
+
+    def generate_random_pin(self):
+        # Generate a random 4-digit PIN
+        self.pin_number = str(random.randint(1000, 9999))
 
     def save_user_data(self):
         # Load existing user data from current_users.json
         try:
-            with open("current_users.json", "r") as json_file:
+            with open("golfcourseDB\\current_user.json", "r") as json_file:
                 data = json.load(json_file)
         except FileNotFoundError:
             data = {"current user": [{"email": "", "PIN_Number": "", "handicap": "", "course": ""}]}
         
         # Update the current user data
         data["current user"][0]["email"] = self.email
-        data["current user"][0]["PIN_Number"] = self.pin_number
+        data["current user"][0]["PIN_Number"] = self.pin_number  # Store the generated PIN
         data["current user"][0]["handicap"] = self.handicap
         data["current user"][0]["course"] = self.selected_course
 

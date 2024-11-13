@@ -49,6 +49,14 @@ ScreenManager:
                 values: root.course_names
                 on_text: root.selected_course = self.text
 
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            Label:
+                text: "PIN Number:"
+            Label:
+                text: root.pin_number  # Display the generated PIN here
+
         Button:
             text: "Go"
             on_release: app.root.current = "score"
