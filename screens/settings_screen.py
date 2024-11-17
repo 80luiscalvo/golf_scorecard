@@ -3,21 +3,25 @@ from kivy.properties import NumericProperty, StringProperty, ListProperty
 import json
 import random
 from pathlib import Path
-
-# Import the load_course_data function
-from data.course_data import load_course_data
+from data.course_data import load_course_data  # Import the load_course_data function
 
 class SettingsScreen(Screen):
     handicap = NumericProperty(0)
     selected_course = StringProperty("")
-    email = StringProperty("")
+    email = StringProperty("")  # Property to hold email input
     pin_number = StringProperty("")
     course_names = ListProperty()
 
     def __init__(self, **kwargs):
         super(SettingsScreen, self).__init__(**kwargs)
-        # Load course names from the JSON file
-        self.course_names = load_course_data()
+        try:
+            # Load course names from the JSON file
+            self.course_names = load_course_data()
+            print("Courses loaded:", self.course_names)
+        except Exception as e:
+            print(f"Error loading course data: {e}")
+            self.course_names = []  # Default to empty if loading fails
+
         self.generate_random_pin()
 
     def generate_random_pin(self):
@@ -33,18 +37,18 @@ class SettingsScreen(Screen):
         """Saves user data to current_user.json."""
         data_path = Path("data/current_user.json")
         try:
-            data = json.loads(data_path.read_text())
-        except FileNotFoundError:
-            data = {"current user": [{"email": "", "PIN_Number": "", "handicap": "", "course": ""}]}
-        
-        data["current user"][0] = {
-            "email": self.email,
-            "PIN_Number": self.pin_number,
-            "handicap": self.handicap,
-            "course": self.selected_course
-        }
+            if data_path.exists():
+                data = json.loads(data_path.read_text())
+            else:
+                data = {"current user": [{"email": "", "PIN_Number": "", "handicap": "", "course": ""}]}
 
-        try:
+            data["current user"][0] = {
+                "email": self.email,  # Include email
+                "PIN_Number": self.pin_number,
+                "handicap": self.handicap,
+                "course": self.selected_course
+            }
+
             data_path.write_text(json.dumps(data, indent=4))
             print("User data saved to current_user.json")
         except Exception as e:

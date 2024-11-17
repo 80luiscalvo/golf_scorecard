@@ -2,9 +2,9 @@
     "current user": [
         {
             "email": "",
-            "PIN_Number": "5370",
-            "handicap": 0,
-            "course": "Centro Nacional de Golf"
+            "PIN_Number": "",
+            "handicap": "",
+            "course": ""
         }
     ]
 }

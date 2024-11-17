@@ -1,25 +1,3 @@
-ScreenManager:
-    HomeScreen:
-        name: "home"
-    SettingsScreen:
-        name: "settings"
-    ScoreScreen:
-        name: "score"
-
-<HomeScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 20
-        spacing: 10
-
-        Label:
-            text: "Welcome to the Golf Scorecard App"
-            font_size: 24
-
-        Button:
-            text: "Start"
-            on_release: app.root.current = "settings"
-
 <SettingsScreen>:
     BoxLayout:
         orientation: 'vertical'
@@ -29,100 +7,76 @@ ScreenManager:
         Label:
             text: "Settings"
             font_size: 24
+            size_hint_y: None
+            height: 40
 
         BoxLayout:
             orientation: 'horizontal'
             spacing: 10
+            size_hint_y: None
+            height: 40
+            Label:
+                text: "Email:"  # Email label
+                size_hint_x: 0.3
+            TextInput:
+                hint_text: "Enter your email"
+                text: root.email  # Bind to the email property
+                multiline: False
+                on_text: root.email = self.text
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            size_hint_y: None
+            height: 40
             Label:
                 text: "Handicap:"
+                size_hint_x: 0.3
             TextInput:
                 input_filter: 'int'
+                hint_text: "Enter handicap"
                 text: str(root.handicap)
+                multiline: False
                 on_text: root.handicap = int(self.text) if self.text.isdigit() else 0
 
         BoxLayout:
             orientation: 'horizontal'
             spacing: 10
+            size_hint_y: None
+            height: 40
             Label:
                 text: "Select Course:"
+                size_hint_x: 0.3
             Spinner:
                 text: "Select Course"
-                values: root.course_names
+                values: root.course_names if root.course_names else ["No Courses Available"]
                 on_text: root.update_selected_course(self.text)
 
         BoxLayout:
             orientation: 'horizontal'
             spacing: 10
+            size_hint_y: None
+            height: 40
             Label:
                 text: "PIN Number:"
+                size_hint_x: 0.3
             Label:
                 text: root.pin_number  # Display the generated PIN here
 
         Button:
-            text: "Save & Go"
-            on_release:
-                root.save_user_data()
-                app.root.current = "score"
-
-        Button:
-            text: "Home"
-            on_release: app.root.current = "home"  # Home button to go back to HomeScreen
-
-<ScoreScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 20
-        spacing: 10
-
-        Label:
-            text: "Scorecard for " + root.player_name
-            font_size: 24
-
-        ScrollView:
-            GridLayout:
-                cols: 2
-                spacing: 5
-                size_hint_y: None
-                height: self.minimum_height
-
-                Label:
-                    text: "Hole"
-                    bold: True
-                Label:
-                    text: "Score"
-                    bold: True
-
-                # Dynamically create score inputs for each hole
-                Label:
-                    text: "Hole 1"
-                TextInput:
-                    input_filter: 'int'
-                    on_text: root.update_score(1, int(self.text) if self.text.isdigit() else 0)
-
-                Label:
-                    text: "Hole 2"
-                TextInput:
-                    input_filter: 'int'
-                    on_text: root.update_score(2, int(self.text) if self.text.isdigit() else 0)
-
-                # Additional holes dynamically added
-                Label:
-                    text: "Hole 18"
-                TextInput:
-                    input_filter: 'int'
-                    on_text: root.update_score(18, int(self.text) if self.text.isdigit() else 0)
+            text: "Save Settings"
+            size_hint_y: None
+            height: 50
+            on_release: root.save_user_data()
 
         BoxLayout:
             orientation: 'horizontal'
-            spacing: 10
-
-            Label:
-                text: "Total Score:"
-                bold: True
-
-            Label:
-                text: str(root.total_score)
-
-        Button:
-            text: "Home"
-            on_release: app.root.current = "home"  # Home button to go back to HomeScreen
+            size_hint_y: None
+            height: 50
+            spacing: 20
+            Button:
+                text: "Go"
+                on_release: app.root.current = "score"
+            Button:
+                text: "Home"
+                on_release: app.root.current = "home"  # Home button to go back to HomeScreen
