@@ -3,41 +3,12 @@
     BoxLayout:
         orientation: 'vertical'
 
-        # Player name section
-        BoxLayout:
-            size_hint_y: None
-            height: '50dp'
-            Label:
-                text: "Player Name: "
-            TextInput:
-                text: root.player_name
-                multiline: False
-                on_text_validate: root.player_name = self.text
-
-        # Display selected course name
-        BoxLayout:
-            size_hint_y: None
-            height: '50dp'
-            Label:
-                text: "Course: "
-            Label:
-                text: root.course_name
-
         # List of holes (18 holes)
         ScrollView:
             RecycleView:
                 id: holes_recycleview
                 viewclass: 'HoleItem'
-                data: [
-                    {
-                        'index': i,
-                        'hole_number': i + 1,
-                        'distance': root.course_data[i]['distance'],
-                        'par': root.course_data[i]['par'],
-                        'handicap': root.course_data[i]['handicap'],
-                        'score': root.hole_scores[i]
-                    } for i in range(18)
-                ]  # Data for 18 holes
+                data: root.get_hole_data()  # Get hole data from the ScoreScreen class
 
         # Total Score Section
         BoxLayout:
@@ -46,4 +17,20 @@
             Label:
                 text: "Total Score: "
             Label:
-                text: str(root.total_score)
+                text: str(root.get_total_score())  # Display total score
+
+# Custom view class for each hole item in RecycleView
+<HoleItem@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '50dp'
+
+    Label:
+        text: "Hole: " + str(root.hole_number)  # Display the hole number
+    TextInput:
+        text: str(root.score)
+        multiline: False
+        input_filter: 'int'  # Ensures only integers can be entered
+        on_text_validate: 
+            root.score = int(self.text)  # Update the score when Enter is pressed
+            app.root.update_score(root.hole_number, root.score)  # Update score in ScoreScreen

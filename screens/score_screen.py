@@ -31,3 +31,16 @@ class ScoreScreen(Screen):
             })
         
         self.set_course_data(course_data)
+
+    def get_total_score(self):
+        """Calculate the total score for all holes."""
+        return sum(self.hole_scores)
+    
+    def get_hole_data(self):
+        """Return hole data for RecycleView."""
+        return [
+            {
+                'hole_number': i + 1,  # Hole number 1 through 18
+                'score': self.hole_scores[i]  # Current score for the hole
+            } for i in range(18)
+        ]

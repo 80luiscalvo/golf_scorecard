@@ -1,10 +1,10 @@
 {
     "current user": [
         {
-            "email": "",
+            "email": "\u00f1",
             "PIN_Number": "",
-            "handicap": "",
-            "course": ""
+            "handicap": "p",
+            "course": "Centro Nacional de Golf"
         }
     ]
 }
