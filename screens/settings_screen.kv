@@ -9,8 +9,31 @@
             font_size: '24sp'
             size_hint: 1, 0.2
 
+        TextInput:
+            id: email_input
+            hint_text: "Enter your email"
+            size_hint: 1, 0.2
+            multiline: False
+
+        TextInput:
+            id: handicap_input
+            hint_text: "Enter your handicap"
+            size_hint: 1, 0.2
+            multiline: False
+
+        Spinner:
+            id: course_spinner
+            text: 'Select Course'
+            size_hint: 1, 0.2
+            height: 44
+            # values will be populated dynamically from the Python code
+
+        Button:
+            text: "Save Settings"
+            size_hint: 1, 0.2
+            on_press: root.save_settings(None)
+
         Button:
             text: "Back to Home"
             size_hint: 1, 0.2
-            on_press: root.manager.current = 'home_screen'
-
+            on_press: root.manager.current = 'home'
