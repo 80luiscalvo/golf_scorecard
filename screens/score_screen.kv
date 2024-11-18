@@ -3,34 +3,5 @@
     BoxLayout:
         orientation: 'vertical'
 
-        # List of holes (18 holes)
-        ScrollView:
-            RecycleView:
-                id: holes_recycleview
-                viewclass: 'HoleItem'
-                data: root.get_hole_data()  # Get hole data from the ScoreScreen class
-
-        # Total Score Section
-        BoxLayout:
-            size_hint_y: None
-            height: '50dp'
-            Label:
-                text: "Total Score: "
-            Label:
-                text: str(root.get_total_score())  # Display total score
-
-# Custom view class for each hole item in RecycleView
-<HoleItem@BoxLayout>:
-    orientation: 'horizontal'
-    size_hint_y: None
-    height: '50dp'
-
-    Label:
-        text: "Hole: " + str(root.hole_number)  # Display the hole number
-    TextInput:
-        text: str(root.score)
-        multiline: False
-        input_filter: 'int'  # Ensures only integers can be entered
-        on_text_validate: 
-            root.score = int(self.text)  # Update the score when Enter is pressed
-            app.root.update_score(root.hole_number, root.score)  # Update score in ScoreScreen
+        Label:
+            text: root.screen_title  # Display the title of the screen
