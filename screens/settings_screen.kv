@@ -1,1 +1,16 @@
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "Settings Screen"
+            font_size: '24sp'
+            size_hint: 1, 0.2
+
+        Button:
+            text: "Back to Home"
+            size_hint: 1, 0.2
+            on_press: root.manager.current = 'home_screen'
 

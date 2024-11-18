@@ -1,1 +1,21 @@
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
 
+        Label:
+            text: "Welcome to GolfScorecardApp"
+            font_size: '24sp'
+            size_hint: 1, 0.2
+
+        Button:
+            text: "Select Round"
+            size_hint: 1, 0.2
+            on_press: root.manager.current = 'settings_screen'
+
+        
+        Button:
+            text: "Reset User Data"
+            size_hint: 1, 0.2
+            on_press: root.reset_user_data()
