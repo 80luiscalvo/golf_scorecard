@@ -1,1 +1,49 @@
+<ScoreScreen>:
+    name: 'score_screen'
+    BoxLayout:
+        orientation: 'vertical'
 
+        # Player name section
+        BoxLayout:
+            size_hint_y: None
+            height: '50dp'
+            Label:
+                text: "Player Name: "
+            TextInput:
+                text: root.player_name
+                multiline: False
+                on_text_validate: root.player_name = self.text
+
+        # Display selected course name
+        BoxLayout:
+            size_hint_y: None
+            height: '50dp'
+            Label:
+                text: "Course: "
+            Label:
+                text: root.course_name
+
+        # List of holes (18 holes)
+        ScrollView:
+            RecycleView:
+                id: holes_recycleview
+                viewclass: 'HoleItem'
+                data: [
+                    {
+                        'index': i,
+                        'hole_number': i + 1,
+                        'distance': root.course_data[i]['distance'],
+                        'par': root.course_data[i]['par'],
+                        'handicap': root.course_data[i]['handicap'],
+                        'score': root.hole_scores[i]
+                    } for i in range(18)
+                ]  # Data for 18 holes
+
+        # Total Score Section
+        BoxLayout:
+            size_hint_y: None
+            height: '50dp'
+            Label:
+                text: "Total Score: "
+            Label:
+                text: str(root.total_score)
