@@ -1,21 +1,22 @@
 <HomeScreen>:
+    name: 'home'
     BoxLayout:
         orientation: 'vertical'
-        padding: 20
-        spacing: 10
+        canvas.before:
+            Color:
+                rgba: app.theme.BACKGROUND_COLOR  # Reference the theme color from the app instance
+            Rectangle:
+                size: self.size
+                pos: self.pos
 
         Label:
-            text: "Welcome to GolfScorecardApp"
+            text: "Home Screen"
+            color: app.theme.TEXT_COLOR  # Use the theme's text color
             font_size: '24sp'
-            size_hint: 1, 0.2
 
         Button:
-            text: "Select Round"
-            size_hint: 1, 0.2
-            on_press: root.manager.current = 'settings_screen'
-
-        
-        Button:
-            text: "Reset User Data"
-            size_hint: 1, 0.2
-            on_press: root.reset_user_data()
+            text: "Go to Settings"
+            background_color: app.theme.MENU_COLOR
+            color: app.theme.TEXT_COLOR
+            on_release:
+                app.root.current = 'settings'

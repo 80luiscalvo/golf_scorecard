@@ -8,30 +8,38 @@
             text: "Settings Screen"
             font_size: '24sp'
             size_hint: 1, 0.2
+            color: app.theme.TEXT_COLOR
 
         TextInput:
             id: email_input
             hint_text: "Enter your email"
             size_hint: 1, 0.2
             multiline: False
+            background_color: app.theme.DATA_COLOR
+            foreground_color: app.theme.TEXT_COLOR
 
         TextInput:
             id: handicap_input
             hint_text: "Enter your handicap"
             size_hint: 1, 0.2
             multiline: False
+            background_color: app.theme.DATA_COLOR
+            foreground_color: app.theme.TEXT_COLOR
 
         Spinner:
             id: course_spinner
             text: 'Select Course'
             size_hint: 1, 0.2
+            background_color: app.theme.MENU_COLOR
+            color: app.theme.TEXT_COLOR
             height: 44
-            # values will be populated dynamically from the Python code
 
         Button:
-            text: "Save Settings"
+            text: "Start Round"
             size_hint: 1, 0.2
-            on_press: root.save_settings(None)
+            background_color: app.theme.ICON_COLOR
+            color: app.theme.TEXT_COLOR
+            on_press: root.save_settings_and_start_round(None)
 
         Button:
             text: "Back to Home"

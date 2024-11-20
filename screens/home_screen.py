@@ -30,7 +30,7 @@ class HomeScreen(Screen):
 
         # Add a button to navigate to Settings Screen
         start_round_button = Button(
-            text="Start Round",
+            text="Start the Round",
             size_hint=(1, 0.2),
             on_press=self.go_to_settings_screen  # Use a method to handle navigation
         )

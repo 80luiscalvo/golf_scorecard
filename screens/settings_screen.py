@@ -1,11 +1,10 @@
-import json
-import os
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.spinner import Spinner
+from theme import Theme  # Assuming Theme is defined in a separate file
 
 class SettingsScreen(Screen):
     def __init__(self, **kwargs):
@@ -22,7 +21,8 @@ class SettingsScreen(Screen):
         label = Label(
             text="Settings Screen",
             font_size="24sp",
-            size_hint=(1, 0.2)
+            size_hint=(1, 0.2),
+            color=Theme.TEXT_COLOR  # Use the theme color
         )
         layout.add_widget(label)
 
@@ -30,7 +30,9 @@ class SettingsScreen(Screen):
         self.email_input = TextInput(
             hint_text="Enter your email",
             size_hint=(1, 0.2),
-            multiline=False
+            multiline=False,
+            background_color=Theme.DATA_COLOR,
+            foreground_color=Theme.TEXT_COLOR
         )
         layout.add_widget(self.email_input)
 
@@ -38,7 +40,9 @@ class SettingsScreen(Screen):
         self.handicap_input = TextInput(
             hint_text="Enter your handicap",
             size_hint=(1, 0.2),
-            multiline=False
+            multiline=False,
+            background_color=Theme.DATA_COLOR,
+            foreground_color=Theme.TEXT_COLOR
         )
         layout.add_widget(self.handicap_input)
 
@@ -47,14 +51,18 @@ class SettingsScreen(Screen):
             text='Select Course',
             values=courses,
             size_hint=(1, 0.2),
+            background_color=Theme.MENU_COLOR,
+            color=Theme.TEXT_COLOR,
             height=44
         )
         layout.add_widget(self.course_spinner)
 
         # Add a button to save the data and start the round
         start_round_button = Button(
-            text="Start Round",  # Change the button text to 'Start Round'
+            text="Start Round",
             size_hint=(1, 0.2),
+            background_color=Theme.ICON_COLOR,
+            color=Theme.TEXT_COLOR,
             on_press=self.save_settings_and_start_round
         )
         layout.add_widget(start_round_button)
@@ -63,6 +71,8 @@ class SettingsScreen(Screen):
         back_button = Button(
             text="Back to Home",
             size_hint=(1, 0.2),
+            background_color=Theme.MENU_COLOR,
+            color=Theme.TEXT_COLOR,
             on_press=self.go_to_home_screen
         )
         layout.add_widget(back_button)
@@ -87,29 +97,22 @@ class SettingsScreen(Screen):
         course = self.course_spinner.text
 
         if not email or not handicap or not course:
-            # Ensure all fields are filled out before proceeding
             print("Please fill in all fields.")
             return
 
-        # Create the user data dictionary
         user_data = {
             "email": email,
             "handicap": handicap,
             "course": course
         }
 
-        # Path to the current user data file
         current_user_file = "data/current_user.json"
 
-        # Check if the current_user.json file exists
         if os.path.exists(current_user_file):
-            # If it exists, load the existing data
             with open(current_user_file, "r") as f:
                 current_user = json.load(f)
-                # Update the "current user" section with new data
                 current_user["current user"][0].update(user_data)
         else:
-            # If the file doesn't exist, create an empty structure
             current_user = {
                 "current user": [user_data],
                 "email": email,
@@ -117,7 +120,6 @@ class SettingsScreen(Screen):
                 "course": course
             }
 
-        # Save the updated data back to current_user.json
         try:
             with open(current_user_file, "w") as f:
                 json.dump(current_user, f, indent=4)
@@ -125,8 +127,7 @@ class SettingsScreen(Screen):
         except Exception as e:
             print(f"Error saving user data: {e}")
 
-        # Navigate to the Score screen
-        self.manager.current = 'score_screen'  # Ensure 'score_screen' is a valid screen in your ScreenManager
+        self.manager.current = 'score_screen'
 
     def go_to_home_screen(self, instance):
         """Navigate back to the Home screen"""
