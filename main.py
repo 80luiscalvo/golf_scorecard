@@ -10,14 +10,19 @@ import os
 import threading
 
 class ReloadHandler(FileSystemEventHandler):
-    """Handles file change events."""
+    """Handles file change events with filters to avoid infinite loops."""
     def __init__(self, app):
         self.app = app
 
     def on_modified(self, event):
-        if event.src_path.endswith(".kv") or event.src_path.endswith(".py"):
-            print(f"File changed: {event.src_path}")
-            os._exit(0)  # Force restart the app when a file changes
+        # Only monitor changes in specific file types
+        if event.src_path.endswith((".kv", ".py")):
+            # Ignore changes in system-generated or temporary files
+            if "__pycache__" in event.src_path or event.src_path.endswith(".pyc"):
+                return
+
+            print(f"File changed: {event.src_path}. Restarting the app...")
+            os._exit(0)  # Exit the app for a restart
 
 class GolfScorecardApp(App):
     def build(self):
@@ -29,7 +34,7 @@ class GolfScorecardApp(App):
         sm.add_widget(SettingsScreen(name='settings'))
         sm.add_widget(ScoreScreen(name='score_screen'))
 
-        # Start file watcher for hot reload
+        # Enable hot reload
         self.enable_hot_reload()
 
         return sm
