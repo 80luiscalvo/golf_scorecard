@@ -22,7 +22,7 @@ class HomeScreen(Screen):
         
         # Add a label
         label = Label(
-            text="Welcome to GolfScorecardApp",
+            text="Welcome to the GolfScorecardApp",
             font_size='24sp',
             size_hint=(1, 0.2)
         )
