@@ -1,22 +1,42 @@
 <HomeScreen>:
     name: 'home'
+
+    canvas.before:
+        Color:
+            rgba: app.theme.BACKGROUND_COLOR if app.theme else [0.98, 0.98, 0.98, 1]  # Light gray fallback
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
     BoxLayout:
         orientation: 'vertical'
-        canvas.before:
-            Color:
-                rgba: app.theme.BACKGROUND_COLOR  # Reference the theme color from the app instance
-            Rectangle:
-                size: self.size
-                pos: self.pos
+        spacing: dp(20)
+        padding: [dp(20)] * 4
 
         Label:
-            text: "Home Screen"
-            color: app.theme.TEXT_COLOR  # Use the theme's text color
-            font_size: '24sp'
+            text: "Welcome to GolfScorecardApp"
+            font_size: '22sp'
+            color: app.theme.TEXT_COLOR if app.theme else [0.1, 0.1, 0.1, 1]  # Dark gray fallback
+            size_hint_y: None
+            height: dp(50)
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
 
         Button:
-            text: "Go to Settings"
-            background_color: app.theme.MENU_COLOR
-            color: app.theme.TEXT_COLOR
-            on_release:
-                app.root.current = 'settings'
+            text: "Start the Round"
+            size_hint_y: None
+            height: dp(50)
+            background_color: app.theme.BUTTON_COLOR_PRIMARY if app.theme else [0.2, 0.6, 0.86, 1]  # Modern blue
+            color: app.theme.TEXT_COLOR_CONTRAST if app.theme else [1, 1, 1, 1]  # White text fallback
+            font_size: '18sp'
+            on_release: root.go_to_settings_screen(self)
+
+        Button:
+            text: "Reset User Data"
+            size_hint_y: None
+            height: dp(50)
+            background_color: app.theme.BUTTON_COLOR_WARNING if app.theme else [0.86, 0.2, 0.2, 1]  # Modern red
+            color: app.theme.TEXT_COLOR_CONTRAST if app.theme else [1, 1, 1, 1]  # White text fallback
+            font_size: '18sp'
+            on_release: root.reset_user_data()
